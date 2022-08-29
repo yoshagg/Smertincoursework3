@@ -30,7 +30,7 @@ def post_page(post_id):
     return render_template('post.html', post=post, comments=comments, comments_quantity=comments_quantity)
 
 
-@app.route("/search", methods=["GET"])
+@app.route("/search/", methods=["GET"])
 def search_page():
     query = request.args.get('s', '')
     posts = search_for_posts(query)
