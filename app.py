@@ -4,7 +4,7 @@ import logging
 #                     format='%(asctime)s [%(levelname)s] %(message)s', encoding='utf-8')
 
 from flask import Flask, render_template, request, jsonify
-from utils import get_posts_all, get_comments_all, get_posts_by_user, get_comments_by_post_id, \
+from utils import get_posts_all, get_posts_by_user, get_comments_by_post_id, \
     search_for_posts, get_post_by_pk
 
 app = Flask(__name__)
@@ -15,7 +15,8 @@ app.config['JSON_AS_ASCII'] = False
 
 @app.route("/", methods=['GET'])
 def feed_page():
-    return render_template('index.html')
+    posts = get_posts_all()
+    return render_template('index.html', posts=posts)
 
 
 @app.route("/posts/<int:post_id>", methods=['GET'])
@@ -56,9 +57,10 @@ def internal_error(error):
     """Вьюшка для вывода ошибки 500"""
     return render_template('500.html'), 500
 
+
 @app.route('/api/posts', methods=["GET"])
 def get_posts():
-    posts = get_posts_all(path_data)
+    posts = get_posts_all()
     logging.info("Запрос /api/posts")
     return jsonify(posts)
 

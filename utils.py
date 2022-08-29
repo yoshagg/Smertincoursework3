@@ -5,7 +5,7 @@ from json import JSONDecodeError
 def get_posts_all() -> list[dict]:
     """Возвращает все посты"""
     try:
-        with open('data/posts.json', 'r', encoding='utf-8') as file:
+        with open('data/posts.json ', 'r', encoding='utf-8') as file:
             return json.load(file)
     except FileNotFoundError:
         return "Файл не найден"
@@ -44,11 +44,13 @@ def get_comments_by_post_id(post_id) -> list[dict]:
     Функция должна вызывать ошибку `ValueError`
     если такого поста нет и пустой список, если у поста нет комментов"""
     comments_list = []
+    posts = get_posts_all()
+    post_ids = [post['pk'] for post in posts]
     for comment in get_comments_all():
         if post_id == comment["post_id"]:
             comments_list.append(comment)
-    if len(comments_list) == 0:
-        raise ValueError('Введён несуществующий ID')
+        if post_id not in post_ids:
+            raise ValueError('Введён несуществующий ID')
     return comments_list
 
 # print(get_comments_by_post_id(1))
@@ -72,3 +74,13 @@ def get_post_by_pk(pk):
     for post in get_posts_all():
         if pk == post['pk']:
             return post
+
+
+def get_post_by_post_id(post_id):
+    """Находит пост по его id"""
+    try:
+        for post in get_posts_all():
+            if post_id == int(post['pk']):
+                return post
+    except ValueError:
+        return "Такого поста не существует"
