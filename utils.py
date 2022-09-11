@@ -5,7 +5,7 @@ from json import JSONDecodeError
 def get_posts_all() -> list[dict]:
     """Возвращает все посты"""
     try:
-        with open('data/posts.json ', 'r', encoding='utf-8') as file:
+        with open('data/posts.json', 'r', encoding='utf-8') as file:
             return json.load(file)
     except FileNotFoundError:
         return "Файл не найден"

@@ -5,7 +5,7 @@ import logging
 
 from flask import Flask, render_template, request, jsonify
 from utils import get_posts_all, get_posts_by_user, get_comments_by_post_id, \
-    search_for_posts, get_post_by_pk
+    search_for_posts, get_post_by_pk, get_post_by_post_id
 
 app = Flask(__name__)
 

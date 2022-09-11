@@ -1,11 +1,11 @@
 import pytest
 from app import app
-from utils import get_posts_all, path_data
+from utils import get_posts_all
 
 
 @pytest.fixture()
 def posts_by_id():
-    posts = get_posts_all(path_data)
+    posts = get_posts_all()
     posts_id = []
     for post in posts:
         posts_id.append(post['pk'])
